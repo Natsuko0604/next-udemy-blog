@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient()
 
@@ -7,7 +7,7 @@ async function main(){
     await prisma.post.deleteMany()
     await prisma.user.deleteMany()
 
-    const hashedPassword = await bcrypt.hash('password123', '12')
+    const hashedPassword = await bcrypt.hash('password123', 12)
 
     const dummyImages = [
         'https://picsum.photos/seed/post1/600/400',
@@ -20,8 +20,8 @@ async function main(){
             email: 'test@example.com',
             name: 'test user',
             password: hashedPassword,
-            post: {
-                creat: [
+            posts: {
+                create: [
                     {
                         title: '初めてのブログ投稿',
                         content: 'これは最初のブログ投稿です。',
@@ -37,7 +37,9 @@ async function main(){
             }
         }
     })
+    // console.log("kaisi")
     console.log({ user })
+    // console.log("owari")
 
 }
 

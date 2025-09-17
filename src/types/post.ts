@@ -1,7 +1,7 @@
 export type Post = {
     id: string
     title: string
-    contents: string
+    content: string
     topImage: string | null
     createdAt: Date
     author: {
