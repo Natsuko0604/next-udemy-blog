@@ -14,8 +14,8 @@ type Params = {
     params: {id: string}
 }
 
-console.log("params.id:")
-console.log("post:")
+// console.log("params.id:")
+// console.log("post:")
 
 
 export default async function Postpage({params} :Params) {
