@@ -3,10 +3,6 @@ import PostCard from "@/components/post/post"
 import {Post} from "@/types/post"
 import { SearchParams } from "next/dist/server/request/search-params"
 
-type searchParams = {
-  search? : string
-}
-
 export default async function PostPage(
   {searchParams}:{searchParams: Promise<SearchParams>}) {
 

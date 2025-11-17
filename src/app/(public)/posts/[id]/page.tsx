@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card"
 
 type Params = {
-    params: {id: string}
+    params: Promise<{id: string}>
 }
 
 // console.log("params.id:")
@@ -19,9 +19,9 @@ type Params = {
 
 
 export default async function Postpage({params} :Params) {
-  console.log("params.id:", params.id)
-    const {id}= params
-    console.log("idは"+id)
+  // console.log("params.id:", params.id)
+    const {id}=  await params;
+    // console.log("idは"+id)
     const post = await getPost(id)
 
     if(!post){
