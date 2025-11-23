@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 // userテーブル
@@ -30,7 +30,7 @@ model post {
     id       String @id @default(cuid())
     title    String
     content  String
-    topImage String
+    topImage String?
     published Boolean @default(true)
     authorId  String
     author   user  @relation(fields: [authorId], references: [id], onDelete: Cascade)

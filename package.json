@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tw:init": "tailwindcss init tailwind.config.ts --ts"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
@@ -15,6 +16,7 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
@@ -23,9 +25,12 @@
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "next-auth": "^5.0.0-beta.30",
-    "prisma": "file:^6@prisma/client@^6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-markdown": "^9.1.0",
+    "react-textarea-autosize": "^8.5.9",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.25.76"
   },
@@ -35,9 +40,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.22",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-    "tailwindcss": "^4",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prisma": "^6.15.0",
+    "tailwindcss": "^4.1.17",
     "ts-node": "^10.9.2",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"

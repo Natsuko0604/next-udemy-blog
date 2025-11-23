@@ -1,7 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient()
+const prisma =  new PrismaClient({
+    datasources: {
+      db: {
+        url: "file:./dev.db", // SQLite の場合
+      },
+    },
+  });
 
 async function main(){
     await prisma.post.deleteMany()

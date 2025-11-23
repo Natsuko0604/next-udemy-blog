@@ -1,8 +1,9 @@
-import { getPost } from "@/lib/post"
+import { getOwnPost } from "@/lib/ownPost"
 import { notFound } from "next/navigation"
 import Image from 'next/image'
 import {format} from 'date-fns'
 import {ja} from 'date-fns/locale'
+import {auth} from '@/auth'
 import {
     Card,
     CardContent,
@@ -14,15 +15,14 @@ type Params = {
     params: Promise<{id: string}>
 }
 
-// console.log("params.id:")
-// console.log("post:")
-
-
-export default async function Postpage({params} :Params) {
-  // console.log("params.id:", params.id)
+export default async function showPage({params} :Params) {
+  const session =await auth()
+  const userId = session?.user?.id
+if(!session?.user?.email||!userId){
+  throw new Error('不正なリクエストです')
+}
     const {id}=  await params;
-    // console.log("idは"+id)
-    const post = await getPost(id)
+    const post = await getOwnPost(userId,id)
 
     if(!post){
         notFound()
