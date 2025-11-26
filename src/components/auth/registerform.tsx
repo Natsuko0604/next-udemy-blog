@@ -12,7 +12,7 @@ import {Label} from '@/components/ui/label'
 import { useActionState } from 'react';
 import {createUser} from "@/lib/actions/createUser"
 
-export default function registerform() {
+export default function Registerform() {
     const[state, formAction] = useActionState(createUser, {
         success:false, errors: {}
     })

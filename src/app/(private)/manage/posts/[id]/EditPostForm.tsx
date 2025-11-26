@@ -1,5 +1,5 @@
 "use client";
-import { useState, useActionState, ReactHTMLElement } from "react";
+import { useState, useActionState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import TextareaAutosize from "react-textarea-autosize";
@@ -7,8 +7,9 @@ import "highlight.js/styles/github.css";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import createPost from "@/lib/actions/createPost";
+import updatePost from "@/lib/actions/updatePost";
 import remarkGfm from "remark-gfm";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 type EditPostFormProps = {
   post: {
@@ -28,7 +29,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
   const [published, setPublished] = useState(post.published);
   const [imagePreview, setImagePreview] = useState(post.topImage);
 
-  const [state, formAction] = useActionState(createPost, {
+  const [state, formAction] = useActionState(updatePost, {
     success: false,
     errors: {},
   });
@@ -38,6 +39,23 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     setContent(value);
     setContentLength(value.length);
   };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file){
+      const previewUrl = await URL.createObjectURL(file)
+      setImagePreview(previewUrl)
+    }
+  }
+
+useEffect(()=>{
+  return ()=>{
+    if (imagePreview && imagePreview !== post.topImage){
+      URL.revokeObjectURL(imagePreview)
+    }
+}
+},[imagePreview, post.topImage])
+
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-2xl font-bold md-4">新規記事投稿(Markdown対応)</h1>
@@ -59,7 +77,18 @@ export default function EditPostForm({ post }: EditPostFormProps) {
           )}
           <div>
             <Label htmlFor="topImage">トップ画像</Label>
-            <Input type="file" id="topImage" accept="image/*" name="topImage" />
+            <Input type="file" id="topImage" accept="image/*" name="topImage" onChange={handleImageChange}/>
+            {imagePreview && (
+              <div className="mt-2">
+                <img
+                     src={imagePreview} 
+                     alt={post.title} 
+                     width={0} height={0} 
+                     sizes="200px" 
+                     className="w-[200px]"  
+                     />
+              </div>
+            )}
             {state.errors.topImage && (
               <p className="text-red-500 text-sm mt-1">
                 {state.errors.topImage.join(",")}
@@ -104,12 +133,21 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             </ReactMarkdown>
           </div>
         )}
+        <RadioGroup value={published.toString()} name="published" onValueChange={(value)=>setPublished(value==='true')}>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="true" id="published-one" />
+    <Label htmlFor="published-one">表示</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="false" id="published-two" />
+    <Label htmlFor="published-two">非表示</Label>
+  </div>
+</RadioGroup>
         <Button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          投稿する
+          type="submit"className="bg-blue-500 text-white px-4 py-2 rounded">
+            更新する
         </Button>
+            <input type="hidden" name="postId" value={post.id}/>
       </form>
     </div>
   );

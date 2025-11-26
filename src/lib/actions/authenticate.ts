@@ -1,4 +1,3 @@
-import { Navigation } from 'lucide-react';
 'use server';
  
 import { signIn } from '@/auth';
