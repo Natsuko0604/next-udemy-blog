@@ -5,17 +5,20 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "hulzszqooffhknwmgakg.supabase.co",
       },
     ],
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: '5mb'
+      bodySizeLimit: "5mb",
     },
   },
 };
-
 
 export default nextConfig;

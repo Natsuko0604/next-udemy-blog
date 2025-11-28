@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import updatePost from "@/lib/actions/updatePost";
 import remarkGfm from "remark-gfm";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import Image from "next/image";
 
 type EditPostFormProps = {
   post: {
@@ -80,7 +81,7 @@ useEffect(()=>{
             <Input type="file" id="topImage" accept="image/*" name="topImage" onChange={handleImageChange}/>
             {imagePreview && (
               <div className="mt-2">
-                <img
+                <Image
                      src={imagePreview} 
                      alt={post.title} 
                      width={0} height={0} 
